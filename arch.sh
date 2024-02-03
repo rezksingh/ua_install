@@ -29,7 +29,7 @@ mkdir /mnt/home
 mount /dev/sda3 /mnt/home
 
 # Install essential packages and tools
-pacstrap /mnt base base-devel linux linux-firmware linux-headers grub efibootmgr os-prober sudo vim mtools dosfstools git
+pacstrap /mnt base base-devel linux linux-firmware linux-headers sudo vi vim grub efibootmgr os-prober mtools dosfstools git openssh samba networkmanager docker
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -61,6 +61,10 @@ echo "$USERNAME:$USER_PASSWORD" | chpasswd
 # Install and configure bootloader (e.g., GRUB) including os-prober
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
+
+# Enable NetworkManager, SSH
+systemctl enable NetworkManager
+systemctl enable sshd
 
 EOF
 
